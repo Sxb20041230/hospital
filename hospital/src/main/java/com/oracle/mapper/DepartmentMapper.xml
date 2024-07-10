@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.oracle.mapper.DepartmentMapper">
+    <resultMap id="departmentMap" type="com.oracle.pojo.Department">
+        <id column="department_id" property="department_Id"/>
+        <result column="department_name" property="department_name"/>
+        <result column="department_description" property="department_description"/>
+        <result column="department_pid" property="department_pid"/>
+
+    </resultMap>
+
+    <insert id="insertDepartment" parameterType="com.oracle.pojo.Department">
+            insert into departments values (null,#{department_name},#{department_pid},#{department_level},#{department_description})
+
+    </insert>
+
+
+
+    <select id="selectRootDepartment" resultMap="departmentMap">
+        select * from departments where department_pid is null
+    </select>
+
+    <select id="selectDepartmentAll" resultMap="departmentMap">
+  select  * from departments
+
+    </select>
+    <delete id="deleteDepartment" parameterType="int">
+        delete from departments where department_id = #{departmentId}
+    </delete>
+
+
+    <select id="selectCountFromTow" parameterType="Integer" resultType="Integer">
+        select count(*) from departments where department_pid = #{departmentId}
+    </select>
+
+	
+</mapper>
